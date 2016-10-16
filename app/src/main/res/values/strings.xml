@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Football Manager</string>
+    <string-array name="fields_array">
+        <item>Full Field</item>
+        <item>Half Field</item>
+        <item>One Third Field</item>
+    </string-array>
+    <string-array name="plans_array">
+        <item>4:3:3</item>
+        <item>4:4:2</item>
+        <item>3:5:2</item>
+    </string-array>
+</resources>

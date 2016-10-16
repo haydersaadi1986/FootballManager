@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.football.footballmanager.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:id="@+id/linearLayout"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Select Field Type: "
+                android:layout_width="wrap_content"
+                android:id="@+id/textView"
+                tools:textSize="100sp"
+                android:textAlignment="viewStart"
+                android:paddingTop="80dp"
+                android:textSize="36sp"
+                android:layout_height="200dp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/spinner"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:scaleY="2" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:id="@+id/linearLayout2"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Select Plan Type: "
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:id="@+id/textView2"
+                tools:textSize="100sp"
+                android:textAlignment="viewStart"
+                android:paddingTop="80dp"
+                android:textSize="36sp" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/spinner2"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:scaleY="2" />
+        </LinearLayout>
+
+        <Button
+            android:text="Start"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:id="@+id/btnStart" />
+    </LinearLayout>
+
+
+</RelativeLayout>
