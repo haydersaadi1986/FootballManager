@@ -1,10 +1,13 @@
 package com.example.football.footballmanager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,12 +18,16 @@ public class Main2Activity extends AppCompatActivity {
     int[] x_pos = new int[22];
     int[] y_pos = new int[22];
 
+    private int xDelta;
+    private int yDelta;
+    RelativeLayout relativeLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        RelativeLayout relativeLayout = new RelativeLayout(this);
+        relativeLayout = new RelativeLayout(this);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         setContentView(relativeLayout, layoutParams);
         Intent intent = getIntent();
@@ -85,6 +92,7 @@ public class Main2Activity extends AppCompatActivity {
                 imageView[i].setImageResource(R.drawable.red_box);
                 imageView[i].setLayoutParams(layoutParam[i]);
                 relativeLayout.addView(imageView[i], layoutParam[i]);
+                imageView[i].setOnTouchListener(MyTouchListener());
             }
             for(int i = 11; i < 22; i++){
                 layoutParam[i] = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -94,11 +102,50 @@ public class Main2Activity extends AppCompatActivity {
                 imageView[i].setImageResource(R.drawable.blue_box);
                 imageView[i].setLayoutParams(layoutParam[i]);
                 relativeLayout.addView(imageView[i], layoutParam[i]);
+                imageView[i].setOnTouchListener(MyTouchListener());
             }
+
 
 
         }else if(field.contentEquals("Half Field")){
             relativeLayout.setBackgroundResource(R.drawable.football_half);
+            if(plan.contentEquals("4:3:3")){
+                x_pos[0] = 200;
+                x_pos[1] = 430;
+                x_pos[2] = 430;
+                x_pos[3] = 430;
+                x_pos[4] = 430;
+                x_pos[5] = 750;
+                x_pos[6] = 750;
+                x_pos[7] = 750;
+                x_pos[8] = 1100;
+                x_pos[9] = 1100;
+                x_pos[10] = 1100;
+                y_pos[0] = 650;
+                y_pos[1] = 200;
+                y_pos[2] = 500;
+                y_pos[3] = 800;
+                y_pos[4] = 1100;
+                y_pos[5] = 350;
+                y_pos[6] = 650;
+                y_pos[7] = 950;
+                y_pos[8] = 350;
+                y_pos[9] = 650;
+                y_pos[10] = 950;
+
+            }
+            RelativeLayout.LayoutParams layoutParam[] = new RelativeLayout.LayoutParams[11];
+            ImageView imageView[] = new ImageView[11];
+            for(int i = 0; i < 11; i++){
+                layoutParam[i] = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParam[i].topMargin = y_pos[i];
+                layoutParam[i].leftMargin = x_pos[i];
+                imageView[i] = new ImageView(this);
+                imageView[i].setImageResource(R.drawable.red_box);
+                imageView[i].setLayoutParams(layoutParam[i]);
+                relativeLayout.addView(imageView[i], layoutParam[i]);
+            }
+            imageView[0].setOnTouchListener(MyTouchListener());
         }else{
             relativeLayout.setBackgroundResource(R.drawable.football_third);
         }
@@ -118,5 +165,41 @@ public class Main2Activity extends AppCompatActivity {
 
 
 
+    }
+
+    private View.OnTouchListener MyTouchListener() {
+        return new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+                switch (event.getAction() & MotionEvent.ACTION_MASK){
+                    case MotionEvent.ACTION_DOWN:
+                        RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams)
+                                v.getLayoutParams();
+
+                        xDelta = x - lParams.leftMargin;
+                        yDelta = y - lParams.topMargin;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Toast.makeText(Main2Activity.this,
+                                "thanks for new location!", Toast.LENGTH_SHORT)
+                                .show();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v
+                                .getLayoutParams();
+                        layoutParams.leftMargin = x - xDelta;
+                        layoutParams.topMargin = y - yDelta;
+                        layoutParams.rightMargin = 0;
+                        layoutParams.bottomMargin = 0;
+                        v.setLayoutParams(layoutParams);
+                        break;
+                }
+                relativeLayout.invalidate();
+                return true;
+            }
+        };
     }
 }
